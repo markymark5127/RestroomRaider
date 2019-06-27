@@ -1,21 +1,72 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div id="fade" style="margin: 0px; padding: 0px;">
+  <div class="statusBar" name="statusBar">
+    <label class="statusLabels">Profile</label>
+    <label class="statusLabels" *ngIf="loggedIn;else notLoggedIn">{{firstName}}</label>
+    <ng-template #notLoggedIn>
+        <label class="statusLabels">Login</label>
+    </ng-template>
+  </div>
+
+<div *ngIf="mapShowing">
+    <div class="container" fxLayout="column">
+      <div class="map" fxFlex="1 1 100%" #map>
+        <agm-map [style.height.px]="map.offsetHeight" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+          <agm-marker [latitude]="latitude" [longitude]="longitude" [iconUrl]="{url: '/../assets/TPGreen.png',
+            scaledSize: {
+              width: 50,
+              height: 60
+            }}"
+            [markerClickable]="true" (markerClick)="markerClicked($event)">
+          </agm-marker>
+        </agm-map>
+      </div>
+    </div>
+
+    <h5>Address: {{address}}</h5>
+    <div *ngIf="hasUnisex;">
+      Unisex Bathroom Rating: {{unisexRating}}/5
+    </div>
+    <div *ngIf="hasMensBR;">
+      Men's Bathroom Rating: {{mensRating}}/5
+    </div>
+    <div *ngIf="hasWomensBR;">
+      Women's Bathroom Rating: {{womensRating}}/5
+    </div>
+    <div *ngIf="hasFamilyBR;">
+      Family Bathroom Rating: {{familyRating}}/5
+    </div>
+    <div *ngIf="hasBabyChanging;else noBaby">
+      Baby Changing Ammentities?: Yes!
+    </div>
+    <ng-template #noBaby>
+      <div>Baby Changing Ammentities?: No!</div>
+    </ng-template>
+    <div *ngIf="hasBlowDryer;else noBlowDry">
+      Blow Dryer?: Yes!
+    </div>
+    <ng-template #noBlowDry>
+      <div>Blow Dryer?: No!</div>
+    </ng-template>
+    <div *ngIf="hasPaperTowels;else noTowels">
+      Paper Towels?: Yes!
+    </div>
+    <ng-template #noTowels>
+      <div>Paper Towels?: No!</div>
+    </ng-template>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+
+  <div *ngIf="mapShowing===false;else mapShowingNow" name="titleSearch" class="mainSearch">
+    <h1 style="padding-top: 3%; color: white;text-shadow: 1px 1px 2px black;">Restroom Raider</h1>
+    <input #search type="text" class="searchBar roundedLeft roundedRight form-control" (keydown.enter)="$event.preventDefault(); showMap($event);"  name="searchBox" placeholder="Find a Bathroom Near You..."  autocorrect="off" autocapitalize="off" spellcheck="off">
+  </div>
+  <ng-template #mapShowingNow>
+    <div name="titleSearch" class="mapSearch">
+      <!--<h1 style="padding-top: 3%; color: white;text-shadow: 1px 1px 2px black;">Restroom Raider</h1>-->
+      <input #search type="text" class="searchBarSmall roundedLeft roundedRight form-control" (keydown.enter)="$event.preventDefault(); showMap($event);"  name="searchBox" placeholder="Find a Bathroom Near You..."  autocorrect="off" autocapitalize="off" spellcheck="off">
+    </div>
+  </ng-template>
+
+
 
 <router-outlet></router-outlet>

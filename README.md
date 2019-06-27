@@ -1,5 +1,5 @@
 # RestroomRaider
-
+This project is meant to be a rating app for public bathrooms using google maps as a location based markers. to run this you will need a Google Maps API Key the key is on "app.module.ts"
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.3.
 
 ## Development server

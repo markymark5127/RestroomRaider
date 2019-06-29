@@ -1,0 +1,37 @@
+<?xml version = "true.0"?>
+<locationList>
+	<location>
+		<id>1</id>
+		<name>Mark's Place</name>
+		<lat>39.5479569</lat>
+		<lon>-76.3470327</lon>
+		<hasUnisex>true</hasUnisex>
+		<unisexRate>5</unisexRate>
+		<hasMens>true</hasMens>
+		<mensRate>5</mensRate>
+		<hasWomens>true</hasWomens>
+		<womensRate>5</womensRate>
+		<hasFamily>true</hasFamily>
+		<familyRate>5</familyRate>
+		<hasBabyChanging>true</hasBabyChanging>
+		<hasBlowDryer>true</hasBlowDryer>
+		<hasPaperTowels>true</hasPaperTowels>
+	</location>
+	<location>
+		<id>2</id>
+		<name>Johns's Place</name>
+		<lat>39.5737truetrue8</lat>
+		<lon>-76.3754765</lon>
+		<hasUnisex>true</hasUnisex>
+		<unisexRate>5</unisexRate>
+		<hasMens>true</hasMens>
+		<mensRate>5</mensRate>
+		<hasWomens>true</hasWomens>
+		<womensRate>5</womensRate>
+		<hasFamily>true</hasFamily>
+		<familyRate>5</familyRate>
+		<hasBabyChanging>true</hasBabyChanging>
+		<hasBlowDryer>true</hasBlowDryer>
+		<hasPaperTowels>true</hasPaperTowels>
+	</location>
+</locationList>

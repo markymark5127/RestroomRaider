@@ -1,71 +1,98 @@
-<div id="fade" style="margin: 0px; padding: 0px;">
+<div id="fade" style="margin: 0px; padding: 0px; background-color: rgb(50, 54, 57);">
   <div class="statusBar" name="statusBar">
-    <label class="statusLabels">Profile</label>
-    <label class="statusLabels" *ngIf="loggedIn;else notLoggedIn">{{firstName}}</label>
+    <button class="statusLabels">Profile</button>
+    <button class="statusLabels" *ngIf="loggedIn;else notLoggedIn">{{currentUser.firstName}}</button>
     <ng-template #notLoggedIn>
-        <label class="statusLabels">Login</label>
+        <button class="statusLabels">Login</button>
     </ng-template>
   </div>
 
-<div *ngIf="mapShowing">
+  <div *ngIf="mapShowing">
     <div class="container" fxLayout="column">
       <div class="map" fxFlex="1 1 100%" #map>
         <agm-map [style.height.px]="map.offsetHeight" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-          <agm-marker [latitude]="latitude" [longitude]="longitude" [iconUrl]="{url: '/../assets/TPGreen.png',
-            scaledSize: {
-              width: 50,
-              height: 60
-            }}"
-            [markerClickable]="true" (markerClick)="markerClicked($event)">
-          </agm-marker>
+          <ng-template ngFor let-item="$implicit" [ngForOf]="locationList" let-i="index">
+            <!--{{loopCalcs(i)}}-->
+            <span [ngSwitch]="locationList[i].mensRate">
+              <span *ngSwitchCase="0 || 1">
+                  <agm-marker [latitude]="locationList[i].latitude" [longitude]="locationList[i].longitude" [iconUrl]="{url: '/../assets/TPRed.png',
+                  scaledSize: {
+                    width: 50,
+                    height: 60
+                  }}"
+                  [markerClickable]="true" (markerClick)="markerClicked($event)"></agm-marker>
+              </span>
+              <span *ngSwitchCase="2 || 3">
+                  <agm-marker [latitude]="locationList[i].latitude" [longitude]="locationList[i].longitude" [iconUrl]="{url: '/../assets/TPYellow.png',
+                  scaledSize: {
+                    width: 50,
+                    height: 60
+                  }}"
+                  [markerClickable]="true" (markerClick)="markerClicked($event)"></agm-marker>
+              </span>
+              <span *ngSwitchCase="4 || 5">
+                <agm-marker [latitude]="locationList[i].latitude" [longitude]="locationList[i].longitude" [iconUrl]="{url: '/../assets/TPGreen.png',
+                  scaledSize: {
+                    width: 50,
+                    height: 60
+                  }}"
+                [markerClickable]="true" (markerClick)="markerClicked($event)"></agm-marker>
+              </span>
+              <span>
+              </span>
+            </span>
+          </ng-template>
         </agm-map>
       </div>
     </div>
 
-    <h5>Address: {{address}}</h5>
-    <div *ngIf="hasUnisex;">
-      Unisex Bathroom Rating: {{unisexRating}}/5
+    <div *ngIf="detailsShowing" name="displayedLocation" class="infoDisplayed">
+      <div class = "row">
+        <div class="column">
+          <p><img align="left" style="border: 1px solid #ddd; border-radius: 4px; padding: 5px; width: 5%; margin-right: 2%; background-color: white;" src = "/../assets/TPGreen.png"><p style="font-size: 150%">{{selectedLocation.name}}</p><button class="roundedLeft roundedRight reviewButton">Review</button></p>
+          <h5>Address: {{address}}</h5>
+        </div>
+        <div class="column" style="margin-top: 2%;">
+          <div *ngIf="selectedLocation.hasUnisex;">
+            Unisex Bathroom Rating: {{selectedLocation.unisexRate}}/5
+            </div>
+            <div *ngIf="selectedLocation.hasMens;">
+              Men's Bathroom Rating: {{selectedLocation.mensRate}}/5
+            </div>
+            <div *ngIf="selectedLocation.hasWomens;">
+              Women's Bathroom Rating: {{selectedLocation.womensRate}}/5
+            </div>
+            <div *ngIf="selectedLocation.hasFamily;">
+              Family Bathroom Rating: {{selectedLocation.familyRate}}/5
+            </div>
+            <div *ngIf="selectedLocation.hasBabyChanging;else noBaby">
+              Baby Changing Ammentities?: Yes!
+            </div>
+            <ng-template #noBaby>
+              <div>Baby Changing Ammentities?: No!</div>
+            </ng-template>
+            <div *ngIf="selectedLocation.hasBlowDryer;else noBlowDry">
+              Blow Dryer?: Yes!
+            </div>
+            <ng-template #noBlowDry>
+              <div>Blow Dryer?: No!</div>
+            </ng-template>
+            <div *ngIf="selectedLocation.hasPaperTowels;else noTowels">
+              Paper Towels?: Yes!
+            </div>
+            <ng-template #noTowels>
+              <div>Paper Towels?: No!</div>
+            </ng-template>
+        </div>
+      </div>
     </div>
-    <div *ngIf="hasMensBR;">
-      Men's Bathroom Rating: {{mensRating}}/5
-    </div>
-    <div *ngIf="hasWomensBR;">
-      Women's Bathroom Rating: {{womensRating}}/5
-    </div>
-    <div *ngIf="hasFamilyBR;">
-      Family Bathroom Rating: {{familyRating}}/5
-    </div>
-    <div *ngIf="hasBabyChanging;else noBaby">
-      Baby Changing Ammentities?: Yes!
-    </div>
-    <ng-template #noBaby>
-      <div>Baby Changing Ammentities?: No!</div>
-    </ng-template>
-    <div *ngIf="hasBlowDryer;else noBlowDry">
-      Blow Dryer?: Yes!
-    </div>
-    <ng-template #noBlowDry>
-      <div>Blow Dryer?: No!</div>
-    </ng-template>
-    <div *ngIf="hasPaperTowels;else noTowels">
-      Paper Towels?: Yes!
-    </div>
-    <ng-template #noTowels>
-      <div>Paper Towels?: No!</div>
-    </ng-template>
   </div>
 </div>
 
-  <div *ngIf="mapShowing===false;else mapShowingNow" name="titleSearch" class="mainSearch">
-    <h1 style="padding-top: 3%; color: white;text-shadow: 1px 1px 2px black;">Restroom Raider</h1>
-    <input #search type="text" class="searchBar roundedLeft roundedRight form-control" (keydown.enter)="$event.preventDefault(); showMap($event);"  name="searchBox" placeholder="Find a Bathroom Near You..."  autocorrect="off" autocapitalize="off" spellcheck="off">
+  <div id="titleSearch" name="titleSearch" class="mainSearch">
+    <h1 *ngIf="mapShowing===false;" style="padding-top: 3%; color: white;text-shadow: 1px 1px 2px black;">Restroom Raider</h1>
+    <input id="searchBar" #search type="text" class="searchBar roundedLeft roundedRight form-control" (keydown.enter)="$event.preventDefault(); showMap($event);"  name="searchBox" placeholder="Find a Bathroom Near You..."  autocorrect="off" autocapitalize="off" spellcheck="off">
   </div>
-  <ng-template #mapShowingNow>
-    <div name="titleSearch" class="mapSearch">
-      <!--<h1 style="padding-top: 3%; color: white;text-shadow: 1px 1px 2px black;">Restroom Raider</h1>-->
-      <input #search type="text" class="searchBarSmall roundedLeft roundedRight form-control" (keydown.enter)="$event.preventDefault(); showMap($event);"  name="searchBox" placeholder="Find a Bathroom Near You..."  autocorrect="off" autocapitalize="off" spellcheck="off">
-    </div>
-  </ng-template>
 
 
 

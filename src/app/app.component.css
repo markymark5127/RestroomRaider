@@ -64,32 +64,22 @@ agm-map {
   padding: 2%;
   width: 50%;
   color: black;
-  font-size: 18px;
+  font-size: 110%;
   background-image: url('../assets/redMagnifyingGlass.png');
   background-repeat: no-repeat;
   background-position: 95%;
-  background-size: 50px 50px;
+  background-size: 5% 50%;
 }
 .searchBarSmall{
   background-color: #F0F0F0;
   padding: 2%;
   width: 50%;
   color: black;
-  font-size: 18px;
+  font-size: 100%;
   background-image: url('../assets/redMagnifyingGlass.png');
   background-repeat: no-repeat;
   background-position: 95%;
-  background-size: 10px 10px;
-}
-.searchButton{
-  border: none;
-  padding: 2%;
-  background-color: red;
-  color: white;
-  font-size: 18px;
-}
-.searchButton:hover{
-  background-color: rgba(255,0,0,.60);
+  background-size: 5% 40%;
 }
 .statusBar{
   padding: 1%;
@@ -98,7 +88,7 @@ agm-map {
   right: 0;
   left: 0;
   z-index: 9999;
-  background-color: rgba(45,45,45,0.99);
+  background-color: rgba(45,45,45,0.95);
   font-family: Arial, Helvetica, sans-serif;
   text-align: right;
   color: white;
@@ -107,7 +97,13 @@ agm-map {
 
 }
 .statusLabels{
-  margin: 2%;
+  margin-right: 2%;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 100%;
+  background-color: transparent;
+  border: none;
+  padding: 0px;
 }
 .statusLabels:hover{
   color:gray;
@@ -118,7 +114,7 @@ agm-map {
   min-height: 250px;
   background-image: url("https://i.pinimg.com/originals/f1/e3/47/f1e347b758ce5340fcc51ec933303237.jpg");
   background-repeat: no-repeat;
-  background-color: white;
+  background-color: rgb(50, 54, 57);
   background-size: cover;
   background-position: 50%;
   box-sizing: border-box;
@@ -134,12 +130,41 @@ agm-map {
   position: absolute;
   top: 10%;
   left: 0%;
+  visibility: hidden;
 }
 button:focus{
   outline: 0px;
 }
 input:focus{
   outline: 0px;
+}
+.infoDisplayed{
+  text-align: left;
+  margin-left: 2%;
+  box-sizing: border-box;
+}
+.column {
+  flex: 50%;
+}
+/* Clear floats after the columns */
+.row {
+  display: flex;
+}
+
+.shrink{
+  -webkit-transform:scale(0.5);
+  -moz-transform:scale(0.5);
+  -ms-transform:scale(0.5);
+  transform:scale(0.5);
+  }
+.reviewButton{
+  background-color: red;
+  color:white;
+  width: 15%;
+  font-size: 120%
+}
+.reviewButton:hover {
+  background-color: rgba(255,0,0,.60);
 }
 .map{
 }

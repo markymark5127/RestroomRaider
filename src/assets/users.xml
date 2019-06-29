@@ -1,0 +1,12 @@
+<?xml version = "1.0"?>
+<user>
+	<id>1</id>
+	<username>johnnyAppleseed</username>
+	<email>JohnnyAppleseed@apple.com</email>
+	<password>trees1234</password>
+	<first>John</first>
+	<last>Appleseed</last>
+	<favorites>
+		<locationID>1</locationID>
+	</favorites>
+</user>

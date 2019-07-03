@@ -11,37 +11,37 @@
     <div class="container" fxLayout="column">
       <div class="map" fxFlex="1 1 100%" #map>
         <agm-map [style.height.px]="map.offsetHeight" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-          <ng-template ngFor let-item="$implicit" [ngForOf]="locationList" let-i="index">
-            <!--{{loopCalcs(i)}}-->
-            <span [ngSwitch]="locationList[i].mensRate">
-              <span *ngSwitchCase="0 || 1">
-                  <agm-marker [latitude]="locationList[i].latitude" [longitude]="locationList[i].longitude" [iconUrl]="{url: '/../assets/TPRed.png',
-                  scaledSize: {
-                    width: 50,
-                    height: 60
-                  }}"
-                  [markerClickable]="true" (markerClick)="markerClicked($event)"></agm-marker>
-              </span>
-              <span *ngSwitchCase="2 || 3">
-                  <agm-marker [latitude]="locationList[i].latitude" [longitude]="locationList[i].longitude" [iconUrl]="{url: '/../assets/TPYellow.png',
-                  scaledSize: {
-                    width: 50,
-                    height: 60
-                  }}"
-                  [markerClickable]="true" (markerClick)="markerClicked($event)"></agm-marker>
-              </span>
-              <span *ngSwitchCase="4 || 5">
-                <agm-marker [latitude]="locationList[i].latitude" [longitude]="locationList[i].longitude" [iconUrl]="{url: '/../assets/TPGreen.png',
-                  scaledSize: {
-                    width: 50,
-                    height: 60
-                  }}"
-                [markerClickable]="true" (markerClick)="markerClicked($event)"></agm-marker>
-              </span>
-              <span>
-              </span>
-            </span>
-          </ng-template>
+          <agm-marker
+            *ngFor="let m of this.markers; let i = index"
+            [latitude]="m.lat"
+            [longitude]="m.lng"
+            [markerDraggable]="m.draggable"
+            [markerClickable]="m.clickable"
+            (markerClick)="markerClicked($event)"
+            [iconUrl]="{url: m.icon, scaledSize: {
+              width: 50,
+              height: 60
+            }}">
+            <agm-info-window>
+              <div style="color: black;">
+                <b>{{m.label}}</b>
+                <span style="text-align: left;">
+                  <div *ngIf="m.hasUnisex;">
+                    Unisex: {{m.unisexRate}}
+                  </div>
+                  <div *ngIf="m.hasMens;">
+                    Men's: {{m.mensRate}}
+                  </div>
+                  <div *ngIf="m.hasWomens;">
+                    Women's: {{m.womensRate}}
+                  </div>
+                  <div *ngIf="m.hasFamily;">
+                    Family: {{m.familyRate}}
+                  </div>
+                </span>
+              </div>
+            </agm-info-window>
+          </agm-marker>
         </agm-map>
       </div>
     </div>
@@ -55,34 +55,34 @@
         <div class="column" style="margin-top: 2%;">
           <div *ngIf="selectedLocation.hasUnisex;">
             Unisex Bathroom Rating: {{selectedLocation.unisexRate}}/5
-            </div>
-            <div *ngIf="selectedLocation.hasMens;">
-              Men's Bathroom Rating: {{selectedLocation.mensRate}}/5
-            </div>
-            <div *ngIf="selectedLocation.hasWomens;">
-              Women's Bathroom Rating: {{selectedLocation.womensRate}}/5
-            </div>
-            <div *ngIf="selectedLocation.hasFamily;">
-              Family Bathroom Rating: {{selectedLocation.familyRate}}/5
-            </div>
-            <div *ngIf="selectedLocation.hasBabyChanging;else noBaby">
-              Baby Changing Ammentities?: Yes!
-            </div>
-            <ng-template #noBaby>
-              <div>Baby Changing Ammentities?: No!</div>
-            </ng-template>
-            <div *ngIf="selectedLocation.hasBlowDryer;else noBlowDry">
-              Blow Dryer?: Yes!
-            </div>
-            <ng-template #noBlowDry>
-              <div>Blow Dryer?: No!</div>
-            </ng-template>
-            <div *ngIf="selectedLocation.hasPaperTowels;else noTowels">
-              Paper Towels?: Yes!
-            </div>
-            <ng-template #noTowels>
-              <div>Paper Towels?: No!</div>
-            </ng-template>
+          </div>
+          <div *ngIf="selectedLocation.hasMens;">
+            Men's Bathroom Rating: {{selectedLocation.mensRate}}/5
+          </div>
+          <div *ngIf="selectedLocation.hasWomens;">
+            Women's Bathroom Rating: {{selectedLocation.womensRate}}/5
+          </div>
+          <div *ngIf="selectedLocation.hasFamily;">
+            Family Bathroom Rating: {{selectedLocation.familyRate}}/5
+          </div>
+          <div *ngIf="selectedLocation.hasBabyChanging;else noBaby">
+            Baby Changing Ammentities?: Yes!
+          </div>
+          <ng-template #noBaby>
+            <div>Baby Changing Ammentities?: No!</div>
+          </ng-template>
+          <div *ngIf="selectedLocation.hasBlowDryer;else noBlowDry">
+            Blow Dryer?: Yes!
+          </div>
+          <ng-template #noBlowDry>
+            <div>Blow Dryer?: No!</div>
+          </ng-template>
+          <div *ngIf="selectedLocation.hasPaperTowels;else noTowels">
+            Paper Towels?: Yes!
+          </div>
+          <ng-template #noTowels>
+            <div>Paper Towels?: No!</div>
+          </ng-template>
         </div>
       </div>
     </div>

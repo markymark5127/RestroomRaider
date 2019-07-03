@@ -6,13 +6,13 @@
 		<lat>39.5479569</lat>
 		<lon>-76.3470327</lon>
 		<hasUnisex>true</hasUnisex>
-		<unisexRate>5</unisexRate>
+		<unisexRate>2</unisexRate>
 		<hasMens>true</hasMens>
-		<mensRate>5</mensRate>
+		<mensRate>2</mensRate>
 		<hasWomens>true</hasWomens>
-		<womensRate>5</womensRate>
+		<womensRate>2</womensRate>
 		<hasFamily>true</hasFamily>
-		<familyRate>5</familyRate>
+		<familyRate>2</familyRate>
 		<hasBabyChanging>true</hasBabyChanging>
 		<hasBlowDryer>true</hasBlowDryer>
 		<hasPaperTowels>true</hasPaperTowels>

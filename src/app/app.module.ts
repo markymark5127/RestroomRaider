@@ -14,7 +14,7 @@ import { AgmCoreModule } from '@agm/core';
     BrowserModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDFTib6euExrWx33dIihy4QnL0w0WZNigs',
+      apiKey: 'G_MAPS_KEY',
       language: 'en',
       libraries: ['geometry', 'places']
 

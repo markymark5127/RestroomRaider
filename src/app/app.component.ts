@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, Input } from '@angular/core';
 import { MapsAPILoader, MouseEvent, AgmMarker } from '@agm/core';
+import { of } from 'rxjs';
 
 interface Location {
   id: number;
@@ -35,8 +36,13 @@ interface User {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
+
 export class AppComponent implements OnInit {
+  @Input()
   title = 'Restroom Raider';
+  public loginUserName: string;
+  public loginPassword: string;
+
   // Current map information
   latitude: number;
   longitude: number;
@@ -114,6 +120,7 @@ export class AppComponent implements OnInit {
 
 
 constructor( private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {
+    this.selectedLocation = this.locations[0];
     this.loginClick = false;
     this.signupClick = false;
     this.showReview = false;
@@ -168,10 +175,10 @@ constructor( private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {
   // Get Current Location Coordinates
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
+      navigator.geolocation.getCurrentPosition(position => {
         this.gotLocation = true;
         this.latitude = position.coords.latitude;
-        this.longitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
         this.theirLat = this.latitude;
         this.theirLon = this.longitude;
         this.zoom = 8;
@@ -358,7 +365,32 @@ constructor( private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {
   loginClicked() {
     this.loginClick = ! this.loginClick;
   }
+
   signupClicked() {
     this.signupClick = ! this.signupClick;
   }
+
+  showReviewPopup() {
+    let returnVal = false;
+    if ( this.showReview && this.loggedIn) {
+      returnVal = true;
+     } else if (this.showReview && !this.loggedIn) {
+      this.loginClick = true;
+      this.showReview = false;
+    }
+    return returnVal;
+  }
+
+  loginCheck() {
+    for ( const currUser of this.users) {
+      if ( (currUser.email ===  this.loginUserName ||
+       currUser.userName === this.loginUserName) &&
+       currUser.password === this.loginPassword) {
+        this.loggedIn = true;
+        this.currentUser = currUser;
+        this.loginClick = false;
+      }
+    }
+  }
+
 }

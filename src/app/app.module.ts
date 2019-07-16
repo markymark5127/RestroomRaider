@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
 
 import { AgmCoreModule } from '@agm/core';
 
@@ -17,7 +18,8 @@ import { AgmCoreModule } from '@agm/core';
       language: 'en',
       libraries: ['geometry', 'places']
 
-    })
+    }),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

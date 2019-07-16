@@ -4,7 +4,6 @@
   <!--status bar with login labels floats on top of everything-->
   <div class="statusBar" name="statusBar">
     <button class="statusLabels" style="float:left;">Restroom Raider</button>
-    <button class="statusLabels">Profile</button>
     <button class="statusLabels" (click)="this.loginClicked()" *ngIf="loggedIn;else notLoggedIn">{{currentUser.firstName}}</button>
     <ng-template #notLoggedIn>
         <button class="statusLabels" (click)="this.loginClicked()">Login</button>
@@ -62,7 +61,7 @@
           <div>
             <img align="left" style="border: 1px solid #ddd; border-radius: 4px; padding: 1%; width: 5%; margin-right: 2%; background-color: white;" [src] = "selectedLocation.icon">
             <p style="font-size: 150%">{{selectedLocation.name}}</p>
-            <button class="roundedLeft roundedRight reviewButton" (click)="this.showReview=true;">Review</button>
+            <button class="roundedLeft roundedRight reviewButton" (click)="this.showReview=true">Review</button>
           </div>
           <h5>Address: {{address}}</h5>
         </div><!--closes left column in details-->
@@ -115,9 +114,9 @@
 <div *ngIf="this.loginClick;" class="triangle-up"></div><!--carrot-->
 <!--login popup-->
 <div *ngIf="this.loginClick && !this.signupClick;" class="login roundedLeft roundedRight">
-  <input type="text" class="loginBox roundedLeft roundedRight" placeholder="Username" />
-  <input type="password" class="loginBox roundedLeft roundedRight" placeholder="Password"/>
-  <button class="loginButtons roundedLeft" (click)="this.signupClicked();" style="margin-right: 0px; border-right-style: solid; border-right-color:rgb(50, 54, 57);">Sign Up</button><button class="loginButtons roundedRight" style="margin-left: 0px;">Log In</button>
+  <input type="text" class="loginBox roundedLeft roundedRight" name="loginUserName" [(ngModel)]="loginUserName" placeholder="Username" />
+  <input type="password" class="loginBox roundedLeft roundedRight" name="loginPassword" [(ngModel)]="loginPassword" placeholder="Password"/>
+  <button class="loginButtons roundedLeft roundedRight" (click)="this.signupClicked();">Sign Up</button><button class="loginButtons roundedLeft roundedRight" style="margin-left: 0px;" (click)="this.loginCheck();">Log In</button>
 </div><!--closes login popup-->
 <!--alternate signup popup-->
 <div *ngIf="this.loginClick && this.signupClick" class="login roundedLeft roundedRight">
@@ -130,21 +129,22 @@
 <!--end of login/signup popup-->
 
 <!--Review popup's-->
-<!--<div *ngIf="this.showReview" class="regularReview roundedLeft roundedRight">-->
-<div class="regularReview roundedLeft roundedRight">
+<div *ngIf="this.showReviewPopup() && this.loggedIn"  class="regularReview roundedLeft roundedRight">
+  <div style="color: black; font-size: 125%; text-align: center; ">Review {{selectedLocation.name}}</div>
   <button class="closeButton" (click)="this.showReview=false">x</button>
   <template *ngIf="!this.exsists">
     <div>Where did you go?</div>
     <input type="text"/>
   </template>
   <div>Which restroom did you use?</div>
-  <input type="checkbox"/>Men's <input type="checkbox"/>Women's <input type="checkbox"/>Unisex <input type="checkbox"/>Family
+  <input type="radio" name="Restroom" value="1"/>Men's <input type="radio" name="Restroom" value="2"/>Women's <input type="radio" name="Restroom" value="3"/>Unisex <input type="radio" name="Restroom" value="4"/>Family
   <div>How was it?</div>
   <input type="number" min="0" max="5"/>/5
   <div>Which hand drying method did you use?</div>
-  <input type="checkbox"/>Paper Towel <input type="checkbox"/>Hand Dryer
+  <input type="radio" name="dryer" value="1"/>Paper Towel <input type="radio" name="dryer" value="2"/>Hand Dryer
   <div>Did it have a baby changing station?</div>
-  <input type="checkbox"/>Yes <input type="checkbox"/>No
+  <input type="radio" name="baby" value="1"/>Yes <input type="radio" name="baby" value="2"/>No
+  <div><button class="submitReview roundedLeft roundedRight">Submit</button></div>
 </div><!--Closes Review-->
 
 <router-outlet></router-outlet>

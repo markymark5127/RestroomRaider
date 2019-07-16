@@ -196,13 +196,14 @@ input:focus{
   text-align: left;
 }
 .loginButtons{
-  border-width: 1px;
   border-style: none;
-  margin: 4%;
+  font-size: 90%;
+  margin: 2%;
   padding: 2%;
   background-color: red;
   color: white;
   text-align: center;
+  width: 40%;
 }
 .login{
   background-color: white;
@@ -234,6 +235,7 @@ input:focus{
   text-align: left;
   color: black;
   position: absolute;
+  box-shadow: 5px 10px 8px rgb(45, 45, 45);
 }
 
 .closeButton{
@@ -248,4 +250,9 @@ input:focus{
 }
 .closeButton:hover{
   color: gray;
+}
+.submitReview{
+  background-color: red;
+  color:white;
+  padding: 2%;
 }

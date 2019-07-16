@@ -1,7 +1,7 @@
-<?xml version = "true.0"?>
+<?xml version = "1.0"?>
 <locationList>
 	<location>
-		<id>1</id>
+		<id>0</id>
 		<name>Mark's Place</name>
 		<lat>39.5479569</lat>
 		<lon>-76.3470327</lon>
@@ -18,9 +18,9 @@
 		<hasPaperTowels>true</hasPaperTowels>
 	</location>
 	<location>
-		<id>2</id>
+		<id>1</id>
 		<name>Johns's Place</name>
-		<lat>39.5737truetrue8</lat>
+		<lat>39.5731178</lat>
 		<lon>-76.3754765</lon>
 		<hasUnisex>true</hasUnisex>
 		<unisexRate>5</unisexRate>

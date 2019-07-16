@@ -1,57 +1,73 @@
+<!--fade for entire page-->
 <div id="fade" style="margin: 0px; padding: 0px; background-color: rgb(50, 54, 57);">
+
+  <!--status bar with login labels floats on top of everything-->
   <div class="statusBar" name="statusBar">
+    <button class="statusLabels" style="float:left;">Restroom Raider</button>
     <button class="statusLabels">Profile</button>
-    <button class="statusLabels" *ngIf="loggedIn;else notLoggedIn">{{currentUser.firstName}}</button>
+    <button class="statusLabels" (click)="this.loginClicked()" *ngIf="loggedIn;else notLoggedIn">{{currentUser.firstName}}</button>
     <ng-template #notLoggedIn>
-        <button class="statusLabels">Login</button>
+        <button class="statusLabels" (click)="this.loginClicked()">Login</button>
     </ng-template>
   </div>
 
+  <!--If search has been done show the map-->
   <div *ngIf="mapShowing">
     <div class="container" fxLayout="column">
       <div class="map" fxFlex="1 1 100%" #map>
         <agm-map [style.height.px]="map.offsetHeight" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+          <!--loop through the markers-->
           <agm-marker
-            *ngFor="let m of this.markers; let i = index"
-            [latitude]="m.lat"
-            [longitude]="m.lng"
-            [markerDraggable]="m.draggable"
-            [markerClickable]="m.clickable"
-            (markerClick)="markerClicked($event)"
-            [iconUrl]="{url: m.icon, scaledSize: {
+            *ngFor="let l of this.locations; let i = index"
+            [latitude]="l.lat"
+            [longitude]="l.lon"
+            [markerDraggable]="false"
+            [markerClickable]="true"
+            (markerClick)="markerClicked($event, l.id)"
+            [iconUrl]="{url: l.icon, scaledSize: {
               width: 50,
               height: 60
             }}">
+            <!--window appearing on marker when clicked-->
             <agm-info-window>
               <div style="color: black;">
-                <b>{{m.label}}</b>
+                <b>{{l.name}}</b>
                 <span style="text-align: left;">
-                  <div *ngIf="m.hasUnisex;">
-                    Unisex: {{m.unisexRate}}
+                  <div *ngIf="l.hasUnisex;">
+                    Unisex: {{l.unisexRate}}
                   </div>
-                  <div *ngIf="m.hasMens;">
-                    Men's: {{m.mensRate}}
+                  <div *ngIf="l.hasMens;">
+                    Men's: {{l.mensRate}}
                   </div>
-                  <div *ngIf="m.hasWomens;">
-                    Women's: {{m.womensRate}}
+                  <div *ngIf="l.hasWomens;">
+                    Women's: {{l.womensRate}}
                   </div>
-                  <div *ngIf="m.hasFamily;">
-                    Family: {{m.familyRate}}
+                  <div *ngIf="l.hasFamily;">
+                    Family: {{l.familyRate}}
                   </div>
                 </span>
               </div>
             </agm-info-window>
           </agm-marker>
-        </agm-map>
-      </div>
-    </div>
+        </agm-map><!--closes map modifiers-->
+      </div><!--closes map -->
+    </div><!--closes map container-->
 
+    <!-- shows the details of the location-->
     <div *ngIf="detailsShowing" name="displayedLocation" class="infoDisplayed">
       <div class = "row">
+
+        <!--left column displays basic info on location-->
         <div class="column">
-          <p><img align="left" style="border: 1px solid #ddd; border-radius: 4px; padding: 5px; width: 5%; margin-right: 2%; background-color: white;" src = "/../assets/TPGreen.png"><p style="font-size: 150%">{{selectedLocation.name}}</p><button class="roundedLeft roundedRight reviewButton">Review</button></p>
+          <div>
+            <img align="left" style="border: 1px solid #ddd; border-radius: 4px; padding: 1%; width: 5%; margin-right: 2%; background-color: white;" [src] = "selectedLocation.icon">
+            <p style="font-size: 150%">{{selectedLocation.name}}</p>
+            <button class="roundedLeft roundedRight reviewButton" (click)="this.showReview=true;">Review</button>
+          </div>
           <h5>Address: {{address}}</h5>
-        </div>
+        </div><!--closes left column in details-->
+
+        <!--right column in location details shows the rating the location recieved-->
         <div class="column" style="margin-top: 2%;">
           <div *ngIf="selectedLocation.hasUnisex;">
             Unisex Bathroom Rating: {{selectedLocation.unisexRate}}/5
@@ -83,17 +99,52 @@
           <ng-template #noTowels>
             <div>Paper Towels?: No!</div>
           </ng-template>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+        </div><!--closes right column-->
+      </div><!--closses "row" the container for the two columns-->
+    </div><!--closes details showing if-->
+  </div><!--closes mapshowing if-->
+</div><!-- closes fade-->
 
-  <div id="titleSearch" name="titleSearch" class="mainSearch">
-    <h1 *ngIf="mapShowing===false;" style="padding-top: 3%; color: white;text-shadow: 1px 1px 2px black;">Restroom Raider</h1>
-    <input id="searchBar" #search type="text" class="searchBar roundedLeft roundedRight form-control" (keydown.enter)="$event.preventDefault(); showMap($event);"  name="searchBox" placeholder="Find a Bathroom Near You..."  autocorrect="off" autocapitalize="off" spellcheck="off">
-  </div>
+<!--search bar-->
+<div id="titleSearch" name="titleSearch" class="mainSearch">
+  <h1 *ngIf="mapShowing===false;" style="padding-top: 3%; color: white;text-shadow: 1px 1px 2px black;">Restroom Raider</h1>
+  <input id="searchBar" #search type="text" class="searchBar roundedLeft roundedRight form-control" (keydown.enter)="$event.preventDefault();this.currLocCheck(search.value);"  name="searchBox" placeholder="Find a Bathroom Near You..."  autocorrect="off" autocapitalize="off" spellcheck="off" value="">
+</div><!--closes search bar-->
 
+<!--login/signup popup (shows on login press)-->
+<div *ngIf="this.loginClick;" class="triangle-up"></div><!--carrot-->
+<!--login popup-->
+<div *ngIf="this.loginClick && !this.signupClick;" class="login roundedLeft roundedRight">
+  <input type="text" class="loginBox roundedLeft roundedRight" placeholder="Username" />
+  <input type="password" class="loginBox roundedLeft roundedRight" placeholder="Password"/>
+  <button class="loginButtons roundedLeft" (click)="this.signupClicked();" style="margin-right: 0px; border-right-style: solid; border-right-color:rgb(50, 54, 57);">Sign Up</button><button class="loginButtons roundedRight" style="margin-left: 0px;">Log In</button>
+</div><!--closes login popup-->
+<!--alternate signup popup-->
+<div *ngIf="this.loginClick && this.signupClick" class="login roundedLeft roundedRight">
+    <input type="text" class="loginBox roundedLeft roundedRight" placeholder="Username" />
+    <input type="text" class="loginBox roundedLeft roundedRight" placeholder="Email" />
+    <input type="password" class="loginBox roundedLeft roundedRight" placeholder="Password"/>
+    <input type="password" class="loginBox roundedLeft roundedRight" placeholder="Confirm Password"/>
+    <button class="loginButtons roundedLeft" style="margin-right: 0px; border-right-style: solid; border-right-color:rgb(50, 54, 57);">Sign Up</button><button (click)="this.signupClicked();" class="loginButtons roundedRight" style="margin-left: 0px;">Log In</button>
+</div><!--closes signup popup-->
+<!--end of login/signup popup-->
 
+<!--Review popup's-->
+<!--<div *ngIf="this.showReview" class="regularReview roundedLeft roundedRight">-->
+<div class="regularReview roundedLeft roundedRight">
+  <button class="closeButton" (click)="this.showReview=false">x</button>
+  <template *ngIf="!this.exsists">
+    <div>Where did you go?</div>
+    <input type="text"/>
+  </template>
+  <div>Which restroom did you use?</div>
+  <input type="checkbox"/>Men's <input type="checkbox"/>Women's <input type="checkbox"/>Unisex <input type="checkbox"/>Family
+  <div>How was it?</div>
+  <input type="number" min="0" max="5"/>/5
+  <div>Which hand drying method did you use?</div>
+  <input type="checkbox"/>Paper Towel <input type="checkbox"/>Hand Dryer
+  <div>Did it have a baby changing station?</div>
+  <input type="checkbox"/>Yes <input type="checkbox"/>No
+</div><!--Closes Review-->
 
 <router-outlet></router-outlet>

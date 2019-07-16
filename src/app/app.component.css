@@ -87,7 +87,7 @@ agm-map {
   top: 0;
   right: 0;
   left: 0;
-  z-index: 9999;
+  z-index: 9998;
   background-color: rgba(45,45,45,0.95);
   font-family: Arial, Helvetica, sans-serif;
   text-align: right;
@@ -160,11 +160,92 @@ input:focus{
 .reviewButton{
   background-color: red;
   color:white;
-  width: 15%;
-  font-size: 120%
+  width: 20%;
+  font-size: 100%;
+  padding: 1%;
 }
 .reviewButton:hover {
   background-color: rgba(255,0,0,.60);
 }
-.map{
+.imageMark{
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 1%;
+  width: 5%;
+  margin-right: 2%;
+  background-color: white;
+}
+.triangle-up {
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+  border-bottom: 10px solid white;
+  top: 6%;
+  left: 97%;
+  z-index: 9999;
+  position: absolute;
+}
+.loginBox{
+  border-style: solid;
+  width: 80%;
+  padding: 5%;
+  margin: 4%;
+  border-color:rgba(45,45,45,0.95);
+  border-width: 1px;
+  text-align: left;
+}
+.loginButtons{
+  border-width: 1px;
+  border-style: none;
+  margin: 4%;
+  padding: 2%;
+  background-color: red;
+  color: white;
+  text-align: center;
+}
+.login{
+  background-color: white;
+  width: 10%;
+  padding: 1%;
+  margin: 0%;
+  top: 7%;
+  left: 88%;
+  z-index: 9999;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  color: black;
+  position: absolute;
+
+}
+.leftArrow {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+.regularReview {
+  background-color: white;
+  width: 33%;
+  padding: 1%;
+  margin: 0%;
+  top: 20%;
+  left: 33%;
+  z-index: 9999;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: left;
+  color: black;
+  position: absolute;
+}
+
+.closeButton{
+  background-color: transparent;
+  border-style: none;
+  color: black;
+  position: absolute;
+  top: 5%;
+  left: 94%;
+  z-index: 9999;
+  font-size: 125%;
+}
+.closeButton:hover{
+  color: gray;
 }

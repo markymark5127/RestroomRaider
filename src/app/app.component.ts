@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone, Input } from '@angular/core';
 import { MapsAPILoader, MouseEvent, AgmMarker } from '@agm/core';
-import { of } from 'rxjs';
 
 interface Location {
   id: number;
@@ -28,7 +27,7 @@ interface User {
   userName: string;
   email: string;
   password: string;
-  favorites: any;
+  favorites?: any;
 }
 
 @Component({
@@ -42,6 +41,13 @@ export class AppComponent implements OnInit {
   title = 'Restroom Raider';
   public loginUserName: string;
   public loginPassword: string;
+  public signupUserName: string;
+  public signupFirstName: string;
+  public signupLastName: string;
+  public signupPassword: string;
+  public signupPassword2: string;
+  public signupEmail: string;
+
 
   // Current map information
   latitude: number;
@@ -391,6 +397,77 @@ constructor( private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {
         this.loginClick = false;
       }
     }
+    if (!this.loggedIn) {
+      alert('The Username or Password was incorrect');
+    }
+  }
+
+  signupCheck() {
+    let alreadyUsed = false;
+    if (this.signupPassword === this.signupPassword2) {
+      for ( const currUser of this.users) {
+        if ( currUser.email ===  this.signupEmail ||
+          currUser.userName === this.signupUserName) {
+          alert('This Username or Email has already been registered');
+          alreadyUsed = true;
+        }
+      }
+    } else {
+        alreadyUsed = true;
+        alert('Passwords do not match');
+      }
+    if (!alreadyUsed) {
+      const u: User = {
+        id: this.users.length,
+        firstName: this.signupFirstName,
+        lastName: this.signupLastName,
+        userName: this.signupUserName,
+        email: this.signupEmail,
+        password: this.signupPassword
+      };
+      this.users.splice(u.id, 0, u);
+      this.loggedIn = true;
+      this.currentUser = this.users[u.id];
+      this.loginClick = false;
+      this.signupFirstName = '';
+      this.signupLastName = '';
+      this.signupUserName = '';
+      this.signupEmail = '';
+      this.signupPassword = '';
+      this.signupPassword2 = '';
+      this.signupClicked();
+      const XMLWriter = require('xml-writer');
+      const xw = new XMLWriter(true);
+      xw.startDocument();
+      xw.startElement('userList');
+      for ( const currUser of this.users) {
+        xw.startElement('user');
+        xw.startElement('id').text(this.users[currUser.id].id);
+        xw.endElement('id');
+        xw.startElement('username').text(this.users[currUser.id].userName);
+        xw.endElement('username');
+        xw.startElement('email').text(this.users[currUser.id].email);
+        xw.endElement('email');
+        xw.startElement('password').text(this.users[currUser.id].password);
+        xw.endElement('password');
+        xw.startElement('first').text(this.users[currUser.id].firstName);
+        xw.endElement('first');
+        xw.startElement('last').text(this.users[currUser.id].lastName);
+        xw.endElement('last');
+        xw.startElement('favorites');
+        xw.startElement('locationID').text('1');
+        xw.endElement('locationID');
+        xw.endElement('favorites');
+        xw.endElement('user');
+      }
+      xw.endElement('userList');
+      xw.endDocument();
+      console.log(xw.toString());
+    }
+  }
+
+  logout() {
+    this.loggedIn = false;
   }
 
 }

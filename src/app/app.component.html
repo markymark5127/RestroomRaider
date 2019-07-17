@@ -114,17 +114,21 @@
 <div *ngIf="this.loginClick;" class="triangle-up"></div><!--carrot-->
 <!--login popup-->
 <div *ngIf="this.loginClick && !this.signupClick;" class="login roundedLeft roundedRight">
-  <input type="text" class="loginBox roundedLeft roundedRight" name="loginUserName" [(ngModel)]="loginUserName" placeholder="Username" />
-  <input type="password" class="loginBox roundedLeft roundedRight" name="loginPassword" [(ngModel)]="loginPassword" placeholder="Password"/>
-  <button class="loginButtons roundedLeft roundedRight" (click)="this.signupClicked();">Sign Up</button><button class="loginButtons roundedLeft roundedRight" style="margin-left: 0px;" (click)="this.loginCheck();">Log In</button>
+  <input type="text" class="loginBox roundedLeft roundedRight" name="loginUserName" [(ngModel)]="loginUserName" (keydown.enter)="this.loginCheck();" placeholder="Username" />
+  <input type="password" class="loginBox roundedLeft roundedRight" name="loginPassword" [(ngModel)]="loginPassword" (keydown.enter)="this.loginCheck();" placeholder="Password"/>
+  <button class="loginButtons roundedLeft roundedRight" (click)="this.signupClicked();">Sign Up</button>
+  <button *ngIf="this.loggedIn;else login" class="loginButtons roundedLeft roundedRight" (click)="this.logout();">Log Out</button>
+  <ng-template #login><button class="loginButtons roundedLeft roundedRight" (click)="this.loginCheck();">Log In</button></ng-template>
 </div><!--closes login popup-->
 <!--alternate signup popup-->
 <div *ngIf="this.loginClick && this.signupClick" class="login roundedLeft roundedRight">
-    <input type="text" class="loginBox roundedLeft roundedRight" placeholder="Username" />
-    <input type="text" class="loginBox roundedLeft roundedRight" placeholder="Email" />
-    <input type="password" class="loginBox roundedLeft roundedRight" placeholder="Password"/>
-    <input type="password" class="loginBox roundedLeft roundedRight" placeholder="Confirm Password"/>
-    <button class="loginButtons roundedLeft" style="margin-right: 0px; border-right-style: solid; border-right-color:rgb(50, 54, 57);">Sign Up</button><button (click)="this.signupClicked();" class="loginButtons roundedRight" style="margin-left: 0px;">Log In</button>
+    <input type="text" class="loginBox roundedLeft roundedRight" [(ngModel)]="signupFirstName" placeholder="First Name"/>
+    <input type="text" class="loginBox roundedLeft roundedRight" [(ngModel)]="signupLastName" placeholder="Last Name"/>
+    <input type="text" class="loginBox roundedLeft roundedRight" [(ngModel)]="signupUserName" placeholder="Username" />
+    <input type="text" class="loginBox roundedLeft roundedRight" [(ngModel)]="signupEmail" placeholder="Email" />
+    <input type="password" class="loginBox roundedLeft roundedRight" [(ngModel)]="signupPassword" placeholder="Password"/>
+    <input type="password" class="loginBox roundedLeft roundedRight" [(ngModel)]="signupPassword2" placeholder="Confirm Password"/>
+    <button class="loginButtons roundedLeft roundedRight" (click)="this.signupCheck();" >Sign Up</button><button (click)="this.signupClicked();" class="loginButtons roundedLeft roundedRight" >Log In</button>
 </div><!--closes signup popup-->
 <!--end of login/signup popup-->
 
@@ -132,10 +136,10 @@
 <div *ngIf="this.showReviewPopup() && this.loggedIn"  class="regularReview roundedLeft roundedRight">
   <div style="color: black; font-size: 125%; text-align: center; ">Review {{selectedLocation.name}}</div>
   <button class="closeButton" (click)="this.showReview=false">x</button>
-  <template *ngIf="!this.exsists">
+  <span *ngIf="!this.exsists">
     <div>Where did you go?</div>
     <input type="text"/>
-  </template>
+  </span>
   <div>Which restroom did you use?</div>
   <input type="radio" name="Restroom" value="1"/>Men's <input type="radio" name="Restroom" value="2"/>Women's <input type="radio" name="Restroom" value="3"/>Unisex <input type="radio" name="Restroom" value="4"/>Family
   <div>How was it?</div>

@@ -1,6 +1,5 @@
 <!--fade for entire page-->
 <div id="fade" style="margin: 0px; padding: 0px; background-color: rgb(50, 54, 57);">
-
   <!--status bar with login labels floats on top of everything-->
   <div class="statusBar" name="statusBar">
     <button class="statusLabels" style="float:left;">Restroom Raider</button>
@@ -9,106 +8,7 @@
         <button class="statusLabels" (click)="this.loginClicked()">Login</button>
     </ng-template>
   </div>
-
-  <!--If search has been done show the map-->
-  <div *ngIf="mapShowing">
-    <div class="container" fxLayout="column">
-      <div class="map" fxFlex="1 1 100%" #map>
-        <agm-map [style.height.px]="map.offsetHeight" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-          <!--loop through the markers-->
-          <agm-marker
-            *ngFor="let l of this.locations; let i = index"
-            [latitude]="l.lat"
-            [longitude]="l.lon"
-            [markerDraggable]="false"
-            [markerClickable]="true"
-            (markerClick)="markerClicked($event, l.id)"
-            [iconUrl]="{url: l.icon, scaledSize: {
-              width: 50,
-              height: 60
-            }}">
-            <!--window appearing on marker when clicked-->
-            <agm-info-window>
-              <div style="color: black;">
-                <b>{{l.name}}</b>
-                <span style="text-align: left;">
-                  <div *ngIf="l.hasUnisex;">
-                    Unisex: {{l.unisexRate}}
-                  </div>
-                  <div *ngIf="l.hasMens;">
-                    Men's: {{l.mensRate}}
-                  </div>
-                  <div *ngIf="l.hasWomens;">
-                    Women's: {{l.womensRate}}
-                  </div>
-                  <div *ngIf="l.hasFamily;">
-                    Family: {{l.familyRate}}
-                  </div>
-                </span>
-              </div>
-            </agm-info-window>
-          </agm-marker>
-        </agm-map><!--closes map modifiers-->
-      </div><!--closes map -->
-    </div><!--closes map container-->
-
-    <!-- shows the details of the location-->
-    <div *ngIf="detailsShowing" name="displayedLocation" class="infoDisplayed">
-      <div class = "row">
-
-        <!--left column displays basic info on location-->
-        <div class="column">
-          <div>
-            <img align="left" style="border: 1px solid #ddd; border-radius: 4px; padding: 1%; width: 5%; margin-right: 2%; background-color: white;" [src] = "selectedLocation.icon">
-            <p style="font-size: 150%">{{selectedLocation.name}}</p>
-            <button class="roundedLeft roundedRight reviewButton" (click)="this.showReview=true">Review</button>
-          </div>
-          <h5>Address: {{address}}</h5>
-        </div><!--closes left column in details-->
-
-        <!--right column in location details shows the rating the location recieved-->
-        <div class="column" style="margin-top: 2%;">
-          <div *ngIf="selectedLocation.hasUnisex;">
-            Unisex Bathroom Rating: {{selectedLocation.unisexRate}}/5
-          </div>
-          <div *ngIf="selectedLocation.hasMens;">
-            Men's Bathroom Rating: {{selectedLocation.mensRate}}/5
-          </div>
-          <div *ngIf="selectedLocation.hasWomens;">
-            Women's Bathroom Rating: {{selectedLocation.womensRate}}/5
-          </div>
-          <div *ngIf="selectedLocation.hasFamily;">
-            Family Bathroom Rating: {{selectedLocation.familyRate}}/5
-          </div>
-          <div *ngIf="selectedLocation.hasBabyChanging;else noBaby">
-            Baby Changing Ammentities?: Yes!
-          </div>
-          <ng-template #noBaby>
-            <div>Baby Changing Ammentities?: No!</div>
-          </ng-template>
-          <div *ngIf="selectedLocation.hasBlowDryer;else noBlowDry">
-            Blow Dryer?: Yes!
-          </div>
-          <ng-template #noBlowDry>
-            <div>Blow Dryer?: No!</div>
-          </ng-template>
-          <div *ngIf="selectedLocation.hasPaperTowels;else noTowels">
-            Paper Towels?: Yes!
-          </div>
-          <ng-template #noTowels>
-            <div>Paper Towels?: No!</div>
-          </ng-template>
-        </div><!--closes right column-->
-      </div><!--closses "row" the container for the two columns-->
-    </div><!--closes details showing if-->
-  </div><!--closes mapshowing if-->
-</div><!-- closes fade-->
-
-<!--search bar-->
-<div id="titleSearch" name="titleSearch" class="mainSearch">
-  <h1 *ngIf="mapShowing===false;" style="padding-top: 3%; color: white;text-shadow: 1px 1px 2px black;">Restroom Raider</h1>
-  <input id="searchBar" #search type="text" class="searchBar roundedLeft roundedRight form-control" (keydown.enter)="$event.preventDefault();this.currLocCheck(search.value);"  name="searchBox" placeholder="Find a Bathroom Near You..."  autocorrect="off" autocapitalize="off" spellcheck="off" value="">
-</div><!--closes search bar-->
+</div><!--closes fade div-->
 
 <!--login/signup popup (shows on login press)-->
 <div *ngIf="this.loginClick;" class="triangle-up"></div><!--carrot-->
@@ -132,23 +32,6 @@
 </div><!--closes signup popup-->
 <!--end of login/signup popup-->
 
-<!--Review popup's-->
-<div *ngIf="this.showReviewPopup() && this.loggedIn"  class="regularReview roundedLeft roundedRight">
-  <div style="color: black; font-size: 125%; text-align: center; ">Review {{selectedLocation.name}}</div>
-  <button class="closeButton" (click)="this.showReview=false">x</button>
-  <span *ngIf="!this.exsists">
-    <div>Where did you go?</div>
-    <input type="text"/>
-  </span>
-  <div>Which restroom did you use?</div>
-  <input type="radio" name="Restroom" value="1"/>Men's <input type="radio" name="Restroom" value="2"/>Women's <input type="radio" name="Restroom" value="3"/>Unisex <input type="radio" name="Restroom" value="4"/>Family
-  <div>How was it?</div>
-  <input type="number" min="0" max="5"/>/5
-  <div>Which hand drying method did you use?</div>
-  <input type="radio" name="dryer" value="1"/>Paper Towel <input type="radio" name="dryer" value="2"/>Hand Dryer
-  <div>Did it have a baby changing station?</div>
-  <input type="radio" name="baby" value="1"/>Yes <input type="radio" name="baby" value="2"/>No
-  <div><button class="submitReview roundedLeft roundedRight">Submit</button></div>
-</div><!--Closes Review-->
+
 
 <router-outlet></router-outlet>

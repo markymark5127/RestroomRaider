@@ -1,0 +1,26 @@
+body{
+  margin: 0%;
+  padding: 0%;
+}
+.roundedLeft{
+ border-top-left-radius: 4px;
+ border-bottom-left-radius: 4px;
+ border: none;
+}
+.roundedRight{
+ border-top-right-radius: 4px;
+ border-bottom-right-radius: 4px;
+}
+.mainSearch{
+  margin: 10%;
+  min-width: 450px;
+  min-height: 250px;
+  background-image: url("https://i.pinimg.com/originals/f1/e3/47/f1e347b758ce5340fcc51ec933303237.jpg");
+  background-repeat: no-repeat;
+  background-color: rgb(50, 54, 57);
+  background-size: cover;
+  background-position: 50%;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}

@@ -42,6 +42,14 @@
 
 /* ********** Fade in effect ********** */
 
+.main{
+  margin:0%;
+  padding:0%;
+  background-color:rgb(50, 54, 57);
+  color:white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:100%;
+}
 
 agm-map {
   height: 500px;

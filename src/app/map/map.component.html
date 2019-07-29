@@ -1,10 +1,10 @@
-<!--If search has been done show the map-->
+<!-- If search has been done show the map-->
 
-  <div class="container" fxLayout="column">
+  <!-- <div class="container" fxLayout="column">
     <div class="map" fxFlex="1 1 100%" #map>
-      <agm-map [style.height.px]="map.offsetHeight" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+      <agm-map [style.height.px]="map.offsetHeight" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom"> -->
         <!--loop through the markers-->
-        <agm-marker
+        <!-- <agm-marker
           *ngFor="let l of this.locations; let i = index"
           [latitude]="l.lat"
           [longitude]="l.lon"
@@ -14,9 +14,9 @@
           [iconUrl]="{url: l.icon, scaledSize: {
             width: 50,
             height: 60
-          }}">
+          }}"> -->
           <!--window appearing on marker when clicked-->
-          <agm-info-window>
+          <!-- <agm-info-window>
             <div style="color: black;">
               <b>{{l.name}}</b>
               <span style="text-align: left;">
@@ -35,24 +35,24 @@
               </span>
             </div>
           </agm-info-window>
-        </agm-marker>
-      </agm-map><!--closes map modifiers-->
-    </div><!--closes map -->
-  </div><!--closes map container-->
+        </agm-marker> -->
+      <!--</agm-map><!--closes map modifiers-->
+    <!--</div><!--closes map -->
+  <!--</div><!--closes map container-->
   <!-- shows the details of the location-->
-  <div *ngIf="detailsShowing" name="displayedLocation" class="infoDisplayed">
-    <div class = "row">
+  <!-- <div *ngIf="detailsShowing" name="displayedLocation" class="infoDisplayed">
+    <div class = "row"> -->
       <!--left column displays basic info on location-->
-      <div class="column">
+      <!-- <div class="column">
         <div>
           <img align="left" style="border: 1px solid #ddd; border-radius: 4px; padding: 1%; width: 5%; margin-right: 2%; background-color: white;" [src] = "selectedLocation.icon">
           <p style="font-size: 150%">{{selectedLocation.name}}</p>
           <button class="roundedLeft roundedRight reviewButton" (click)="this.showReview=true">Review</button>
         </div>
-        <h5>Address: {{address}}</h5>
-      </div><!--closes left column in details-->
+        <h5>Address: {{address}}</h5> -->
+      <!--</div><!--closes left column in details-->
       <!--right column in location details shows the rating the location recieved-->
-      <div class="column" style="margin-top: 2%;">
+      <!-- <div class="column" style="margin-top: 2%;">
         <div *ngIf="selectedLocation.hasUnisex;">
           Unisex Bathroom Rating: {{selectedLocation.unisexRate}}/5
         </div>
@@ -82,13 +82,13 @@
         </div>
         <ng-template #noTowels>
           <div>Paper Towels?: No!</div>
-        </ng-template>
-      </div><!--closes right column-->
-    </div><!--closses "row" the container for the two columns-->
-  </div><!--closes details showing if-->
+        </ng-template> -->
+      <!--</div><!--closes right column-->
+    <!--</div><!--closses "row" the container for the two columns-->
+  <!--</div><!--closes details showing if-->
 
 <!--Review popup's-->
-<div *ngIf="this.showReviewPopup() && this.loggedIn"  class="regularReview roundedLeft roundedRight">
+<!-- <div *ngIf="this.showReviewPopup() && this.loggedIn"  class="regularReview roundedLeft roundedRight">
   <div style="color: black; font-size: 125%; text-align: center; ">Review {{selectedLocation.name}}</div>
   <button class="closeButton" (click)="this.showReview=false">x</button>
   <span *ngIf="!this.exsists">
@@ -103,5 +103,5 @@
   <input type="radio" name="dryer" value="1"/>Paper Towel <input type="radio" name="dryer" value="2"/>Hand Dryer
   <div>Did it have a baby changing station?</div>
   <input type="radio" name="baby" value="1"/>Yes <input type="radio" name="baby" value="2"/>No
-  <div><button class="submitReview roundedLeft roundedRight">Submit</button></div>
-</div><!--Closes Review-->
+  <div><button class="submitReview roundedLeft roundedRight">Submit</button></div> -->
+<!--</div><!--Closes Review -->

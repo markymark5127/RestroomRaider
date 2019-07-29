@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '../objects/location';
 
 @Component({
   selector: 'app-map',

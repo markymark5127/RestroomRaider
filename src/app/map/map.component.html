@@ -1,5 +1,5 @@
 <!--If search has been done show the map-->
-<div *ngIf="mapShowing">
+
   <div class="container" fxLayout="column">
     <div class="map" fxFlex="1 1 100%" #map>
       <agm-map [style.height.px]="map.offsetHeight" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
@@ -86,7 +86,7 @@
       </div><!--closes right column-->
     </div><!--closses "row" the container for the two columns-->
   </div><!--closes details showing if-->
-</div><!--closes mapshowing if-->
+
 <!--Review popup's-->
 <div *ngIf="this.showReviewPopup() && this.loggedIn"  class="regularReview roundedLeft roundedRight">
   <div style="color: black; font-size: 125%; text-align: center; ">Review {{selectedLocation.name}}</div>

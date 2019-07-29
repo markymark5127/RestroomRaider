@@ -7,14 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { HomeComponent } from './home/home.component';
 import { MapComponent } from './map/map.component';
-import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component'
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { RouterModule, Routes } from '@angular/router';
-
-const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'map/:lat,lon', component: MapComponent },
-  { path: '**', component: PagenotfoundComponent}
-];
 
 @NgModule({
   declarations: [

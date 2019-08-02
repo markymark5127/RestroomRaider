@@ -83,12 +83,12 @@
 }
 
 .loginBox{
-  border-style: solid;
+  /* border-style: solid; */
   width: 80%;
   padding: 5%;
   margin: 4%;
-  border-color:rgba(45,45,45,0.95);
-  border-width: 1px;
+  /* border-color: #2D2D2D;
+  border-width: 5px; */
   text-align: left;
 }
 .loginButtons{

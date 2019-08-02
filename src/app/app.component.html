@@ -3,7 +3,7 @@
   <!--status bar with login labels floats on top of everything-->
   <div class="statusBar" name="statusBar">
     <button class="statusLabels" [routerLink]="['/home']" style="float:left;">Restroom Raider</button>
-    <button class="statusLabels" (click)="this.userButtonShowHide()" *ngIf="this.userButtonShow;else notLoggedIn">{{currentUser.firstName}}</button>
+    <button class="statusLabels" (click)="this.userButtonShowHide()" *ngIf="this.loggedin;else notLoggedIn">{{currentUser.firstName}}</button>
     <ng-template #notLoggedIn>
         <button class="statusLabels" (click)="this.userButtonShowHide()">Login</button>
     </ng-template>
@@ -28,7 +28,8 @@
     <input type="text" class="loginBox roundedLeft roundedRight" [(ngModel)]="signupEmail" placeholder="Email" />
     <input type="password" class="loginBox roundedLeft roundedRight" [(ngModel)]="signupPassword" placeholder="Password"/>
     <input type="password" class="loginBox roundedLeft roundedRight" [(ngModel)]="signupPassword2" placeholder="Confirm Password"/>
-    <button class="loginButtons roundedLeft roundedRight" (click)="this.signup();" >Sign Up</button><button (click)="this.loginShowForm();" class="loginButtons roundedLeft roundedRight" >Log In</button>
+    <button class="loginButtons roundedLeft roundedRight" (click)="this.signup();" >Sign Up</button>
+    <button (click)="this.loginShowForm();" class="loginButtons roundedLeft roundedRight" >Log In</button>
 </div><!--closes signup popup-->
 <!--end of login/signup popup-->
 <router-outlet></router-outlet>

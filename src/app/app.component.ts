@@ -10,6 +10,7 @@ import { User } from './objects/user';
 
 export class AppComponent implements OnInit {
   title = 'Restroom Raider';
+  // login popup stuff
   public loginUserName: string;
   public loginPassword: string;
   public signupUserName: string;
@@ -18,6 +19,12 @@ export class AppComponent implements OnInit {
   public signupPassword: string;
   public signupPassword2: string;
   public signupEmail: string;
+
+  // all users
+  users: User[];
+
+  // users file
+  userFile: any;
 
   // user that is logged in
   currentUser: User;
@@ -46,14 +53,20 @@ export class AppComponent implements OnInit {
       email: ''
     };
     this.userButtonShow = false;
+    this.userFile = this.loadFile('/../assets/users.xml');
   }
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
   }
   userButtonShowHide() {
     this.userButtonShow = !this.userButtonShow;
-    this.loginShow = true;
-    this.signupShow = false;
+    if (this.userButtonShow) {
+      this.loginShow = true;
+      this.signupShow = false;
+    } else {
+      this.loginShow = false;
+      this.signupShow = false;
+    }
+
   }
   loginShowForm() {
     this.loginShow = true;
@@ -70,10 +83,110 @@ export class AppComponent implements OnInit {
     this.signupShow = false;
   }
   signup() {
-
+    let alreadyUsed = false;
+    if (this.signupPassword === this.signupPassword2) {
+      for ( const currUser of this.users) {
+        if ( currUser.email ===  this.signupEmail ||
+          currUser.userName === this.signupUserName) {
+          alert('This Username or Email has already been registered');
+          alreadyUsed = true;
+        }
+      }
+    } else {
+        alreadyUsed = true;
+        alert('Passwords do not match');
+      }
+    if (!alreadyUsed) {
+      const u: User = {
+        id: this.users.length,
+        firstName: this.signupFirstName,
+        lastName: this.signupLastName,
+        userName: this.signupUserName,
+        email: this.signupEmail,
+        password: this.signupPassword
+      };
+      this.users.splice(u.id, 0, u);
+      this.loggedin = true;
+      this.currentUser = this.users[u.id];
+      // this.loginClick = false;
+      this.signupFirstName = '';
+      this.signupLastName = '';
+      this.signupUserName = '';
+      this.signupEmail = '';
+      this.signupPassword = '';
+      this.signupPassword2 = '';
+      // this.signupClicked();
+      const XMLWriter = require('xml-writer');
+      const xw = new XMLWriter(true);
+      xw.startDocument();
+      xw.startElement('userList');
+      for ( const currUser of this.users) {
+        xw.startElement('user');
+        xw.startElement('id').text(this.users[currUser.id].id);
+        xw.endElement('id');
+        xw.startElement('username').text(this.users[currUser.id].userName);
+        xw.endElement('username');
+        xw.startElement('email').text(this.users[currUser.id].email);
+        xw.endElement('email');
+        xw.startElement('password').text(this.users[currUser.id].password);
+        xw.endElement('password');
+        xw.startElement('first').text(this.users[currUser.id].firstName);
+        xw.endElement('first');
+        xw.startElement('last').text(this.users[currUser.id].lastName);
+        xw.endElement('last');
+        xw.startElement('favorites');
+        xw.startElement('locationID').text('1');
+        xw.endElement('locationID');
+        xw.endElement('favorites');
+        xw.endElement('user');
+      }
+      xw.endElement('userList');
+      xw.endDocument();
+      console.log(xw.toString());
+    }
   }
   loginCheck() {
-
+    for ( const currUser of this.users) {
+      if ( (currUser.email ===  this.loginUserName ||
+      currUser.userName === this.loginUserName) &&
+      currUser.password === this.loginPassword) {
+       this.loggedin = true;
+       this.currentUser = currUser;
+       // this.loginClick = false;
+      }
+   }
+    if (!this.loggedin) {
+     alert('The Username or Password was incorrect');
+   }
+  }
+  loadFile(filePath) {
+    let result = null;
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.open('GET', filePath, false);
+    xmlhttp.send();
+    if (xmlhttp.status === 200) {
+      result = xmlhttp.responseText;
+    }
+    return result;
+  }
+  userParser() {
+    const parseString = require('xml2js').parseString;
+    const us: User[] = new Array();
+    parseString(this.userFile , (err, result) => {
+      let i: number;
+      for (i = 0; i < result.userList.user.length; i++) {
+        const u: User = {
+          id: parseInt(result.userList.user[i].id, 10),
+          firstName: result.userList.user[i].first[0],
+          lastName: result.userList.user[i].last[0],
+          userName: result.userList.user[i].username[0],
+          email: result.userList.user[i].email[0],
+          password: result.userList.user[i].password[0]
+        };
+        us.splice(u.id, 0, u);
+      }
+    });
+    this.users = us;
   }
 }
   // loginCheck() {

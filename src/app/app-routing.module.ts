@@ -6,13 +6,14 @@ import { HomeComponent } from './home/home.component';
 import { MapComponent } from './map/map.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
-const appRoutes: Routes = [
+const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'map/:lat,lon', component: MapComponent },
   { path: '**', component: PagenotfoundComponent}
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes, { enableTracing: true } )],
+  imports: [RouterModule.forRoot(routes, { enableTracing: true } )],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

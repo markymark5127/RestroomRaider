@@ -31,7 +31,7 @@ body{
   width: 50%;
   color: black;
   font-size: 110%;
-  background-image: url('../assets/redMagnifyingGlass.png');
+  background-image: url('../../assets/redMagnifyingGlass.png');
   background-repeat: no-repeat;
   background-position: 95%;
   background-size: 5% 50%;
@@ -42,7 +42,7 @@ body{
   width: 50%;
   color: black;
   font-size: 100%;
-  background-image: url('../assets/redMagnifyingGlass.png');
+  background-image: url('../../assets/redMagnifyingGlass.png');
   background-repeat: no-repeat;
   background-position: 95%;
   background-size: 5% 40%;

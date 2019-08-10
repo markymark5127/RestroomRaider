@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone, Input } from '@angular/core';
 import { MapsAPILoader, MouseEvent, AgmMarker } from '@agm/core';
 import { User } from '../objects/user';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -88,7 +88,7 @@ export class HomeComponent implements OnInit {
   }
 
   goToMap() {
-    this.router.navigate(['map', this.latitude, this.longitude]);
+    this.router.navigate(['map', this.latitude, this.longitude, this.geoCoder, this.gotLocation, this.usersLat, this.usersLon]);
   }
 
 

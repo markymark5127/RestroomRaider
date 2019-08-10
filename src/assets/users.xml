@@ -7,8 +7,5 @@
     <password>trees1234</password>
     <first>John</first>
     <last>Appleseed</last>
-    <favorites>
-      <locationID>1</locationID>
-    </favorites>
   </user>
 </userList>

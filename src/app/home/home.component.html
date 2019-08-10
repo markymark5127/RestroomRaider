@@ -2,6 +2,8 @@
 <div id="titleSearch" name="titleSearch" class="mainSearch">
   <h1 style="padding-top: 3%; color: white;text-shadow: 1px 1px 2px black;">Restroom Raider</h1>
   <!-- <input id="searchBar" #search type="text" class="searchBar roundedLeft roundedRight form-control" (keydown.enter)="$event.preventDefault();this.currLocCheck(search.value);"  name="searchBox" placeholder="Find a Bathroom Near You..."  autocorrect="off" autocapitalize="off" spellcheck="off" value=""> -->
-  <input id="searchBar" #search type="text" class="searchBar roundedLeft roundedRight form-control" (keydown.enter)="$event.preventDefault();"  name="searchBox" placeholder="Find a Bathroom Near You..."  autocorrect="off" autocapitalize="off" spellcheck="off" value="">
+  <input id="searchBar" #search type="text" class="searchBar roundedLeft roundedRight form-control"
+    (keydown.enter)="$event.preventDefault(); goToMap();" name="searchBox" placeholder="Find a Bathroom Near You..."
+    autocorrect="off" autocapitalize="off" spellcheck="off" value="">
 </div><!--closes search bar-->
 <router-outlet></router-outlet>

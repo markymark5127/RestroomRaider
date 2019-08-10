@@ -134,10 +134,6 @@ export class AppComponent implements OnInit {
         xw.endElement('first');
         xw.startElement('last').text(this.users[currUser.id].lastName);
         xw.endElement('last');
-        xw.startElement('favorites');
-        xw.startElement('locationID').text('1');
-        xw.endElement('locationID');
-        xw.endElement('favorites');
         xw.endElement('user');
       }
       xw.endElement('userList');
@@ -188,6 +184,7 @@ export class AppComponent implements OnInit {
     });
     this.users = us;
   }
+
 }
   // loginCheck() {
   //   for ( const currUser of this.users) {

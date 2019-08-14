@@ -1,11 +1,4 @@
-<!-- If search has been done show the map-->
-<div id="titleSearch" name="titleSearch" class="mainSearch">
-  <h1 style="padding-top: 3%; color: white;text-shadow: 1px 1px 2px black;">Restroom Raider</h1>
-  <!-- <input id="searchBar" #search type="text" class="searchBar roundedLeft roundedRight form-control" (keydown.enter)="$event.preventDefault();this.currLocCheck(search.value);"  name="searchBox" placeholder="Find a Bathroom Near You..."  autocorrect="off" autocapitalize="off" spellcheck="off" value=""> -->
-  <input id="searchBar" #search type="text" class="searchBar roundedLeft roundedRight form-control"
-    (keydown.enter)="$event.preventDefault();" name="searchBox" placeholder="Find a Bathroom Near You..."
-    autocorrect="off" autocapitalize="off" spellcheck="off" value="">
-</div><!--closes search bar-->
+
   <div class="container" fxLayout="column">
     <div class="map" fxFlex="1 1 100%" #map>
       <agm-map [style.height.px]="map.offsetHeight" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom"> -->
@@ -92,6 +85,14 @@
       </div><!--closes right column-->
     </div><!--closses "row" the container for the two columns-->
   </div><!--closes details showing if-->
+
+<!-- If search has been done show the map-->
+<div id="titleSearch" name="titleSearch" class="mainSearch">
+  <!-- <input id="searchBar" #search type="text" class="searchBar roundedLeft roundedRight form-control" (keydown.enter)="$event.preventDefault();this.currLocCheck(search.value);"  name="searchBox" placeholder="Find a Bathroom Near You..."  autocorrect="off" autocapitalize="off" spellcheck="off" value=""> -->
+  <input id="searchBar" #search type="text" class="searchBar roundedLeft roundedRight form-control"
+    (keydown.enter)="$event.preventDefault();" name="searchBox" placeholder="Find a Bathroom Near You..."
+    autocorrect="off" autocapitalize="off" spellcheck="off" value="">
+</div><!--closes search bar-->
 
 <!--Review popup's-->
 <div *ngIf="this.showReviewPopup()"  class="regularReview roundedLeft roundedRight">

@@ -30,6 +30,7 @@ export class MapComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {
     this.locationFile = this.loadFile('/../assets/locations.xml');
+    this.locationParser();
   }
 
   @ViewChild('search', {static: false})
